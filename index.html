@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>吕清泉电视台</title>
+<!-- Styles -->
+<link rel="stylesheet" href="dist/plyr.css">
+<!-- Plyr core script -->
+<script src="dist/plyr.js"></script>
+	<style>
+		body{background-color: #262626}
+		.m{ margin-left: auto; margin-right: auto; width: 640px; margin-top: 100px; }
+		
+	</style>
+  
+
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+	
+<meta charset="UTF-8">
+	
+<title>H5视频播放器</title>
+	
+<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+	}
+	body,html{
+		width: 100%;
+		height: 100%;
+	}
+		#videoboxbox{
+			width: 800px;
+			
+			margin:0 auto;
+	margin-top: 50px;			position: relative;
+			background: url(img/bg.png) no-repeat;
+			background-size: cover;
+		}
+		
+		h1{margin-top:10px; padding-bottom: 20px; color: #fff; text-align: center; font-size: 18px; font-family: "微软雅黑"}
+		#currentTime{
+			
+			height: 5px;
+			background: #fff;
+			
+			width: 100%;
+		}
+		#duration{
+			height: 5px;
+			background: #04EAEA;
+			width: 0;
+		}
+		video{width: 100%}
+		.control{			
+			height: 60px;
+			position: relative;
+			width: 525px;
+			margin:10px auto;
+	}
+		
+		.control li{
+			width: 105px;
+			height: 38px;
+			float: left;
+			list-style-type: none;
+			position: relative;
+		}
+
+		.control li span{
+			display: block;
+			cursor: pointer;
+			top: 25px;
+			width: 60px;
+			height: 40px;
+			background: url(img/timg.png) center no-repeat;
+		}
+		#voice{
+			background-position: -34px 0;				
+		}
+		#fullscreen{
+			background-position: -140px 0;			
+		}
+		#on{		
+			background-position: -245px 0;				
+		}		
+		#pre{
+			background-position: -350px 0;	
+		}
+		#next{
+			background-position: -454px 0;	
+		}
+		#convoice{
+			width: 5px;
+			height: 100px;
+			background: #fff;
+			border-radius: 3px;
+			position: absolute;
+			top: -100px;
+			left: 15px;
+			display: none;
+		}
+		#changevoice{
+			width: 5px;
+			height: 0;
+			background: #ccc;
+			display: block;
+			position: absolute;
+			border-top: 2px solid #999;
+			bottom: 0;
+
+		}
+
+	
+
+</style>
+</head>
+<body>
+	<div id="videoboxbox">
+	
+
+<video src="3theA.mp4" id="videobox" autoplay="" paused>您的浏览器不支持 audio 标签。
+
+</video>
+	
+	
+<div class="controlbox">
+	
+<div id="currentTime">
+			
+<p id="duration"></p>
+		
+</div>
+	<ul class="control">
+		
+<li><span id="voice"></span><p id="convoice"><i id="changevoice"></i></p></li>
+		
+<li><span id="fullscreen"></span></li>
+		<li><span id="on"></span></li>
+		
+<li><span id="pre"></span></li>
+		<li><span id="next"></span></li>
+	
+</ul>
+		</div>	
+		<h1></h1>
+	</div>
+	
+	
+
+</body>
+<script type="text/javascript">
+	var videobox=document.getElementById("videobox");
+	
+var on=document.getElementById("on");
+	var turnup=document.getElementById("turnup");
+	var turndown=document.getElementById("turndown");
+	
+var pre=document.getElementById("pre");
+	var next=document.getElementById("next");
+	var title=document.getElementsByTagName("h1")[0];
+	
+var convoice=document.getElementById("convoice");
+	var off=true;
+	videobox.volume=0.5;
+	var index=0;
+	
+
+var mlist=[{src:"http://223.110.245.139:80/PLTV/3/224/3221226980/index.m3u8",title:"吕清泉电视台 FHWS"},
+{src:"http://223.110.245.139:80/PLTV/3/224/3221226977/index.m3u8",title:"吕清泉电视台 FHZW"},
+{src:"http://skydvn-nowtv-atv-prod.skydvn.com/atv/skynews/1404/live/04.m3u8",title:"吕清泉电视台 SKYNEWS"},
+{src:"http://cmghlslive-i.akamaihd.net/hls/live/224714/WJAX/master.m3u8",title:"吕清泉电视台 CBS47"},
+{src:"http://tvemsnbc-lh.akamaihd.net/i/nbcmsnbc_1@122532/master.m3u8",title:"吕清泉电视台 MSNBC"},
+{src:"http://cdn-videos.akamaized.net/btv/desktop/akamai/asia/live/primary.m3u8",title:"吕清泉电视台 Bloomberg TV ASIA"},
+{src:"https://58ad68d0b6c8d.streamlock.net/ios/-echannel---0832/playlist.m3u8",title:"吕清泉电视台 E"},
+{src:"http://f24hls-i.akamaihd.net:80/hls/live/221193/F24_EN_LO_HLS/master_900.m3u8",title:"吕清泉电视台 F24"},
+{src:"http://tglcnash-i.akamaihd.net/hls/live/566558/ctv/02.m3u8",title:"吕清泉电视台 ASIA NEWS"},
+{src:"http://bcoveliveios-i.akamaihd.net/hls/live/217434-b/3083279840001/master.m3u8#http://bcoveliveios-i.akamaihd.net/hls/live/217434/3083279840001/master_900.m3u8",title:"吕清泉电视台 London  Live"},
+{src:"http://acm.gg/jade.m3u8",title:"吕清泉电视台 翡翠台"},
+{src:"http://183.251.61.207/PLTV/88888888/224/3221225924/index.m3u8",title:"吕清泉电视台 CCTV3"},
+{src:"http://live.aikan.miguvideo.com/envivo_x/SD/cctv13/711/01.m3u8",title:"吕清泉电视台 CCTV13"},
+{src:"http://183.251.61.207/PLTV/88888888/224/3221225939/index.m3u8",title:"吕清泉电视台 CCTV5+"},
+{src:"http://183.251.61.207/PLTV/88888888/224/3221225935/index.m3u8",title:"吕清泉电视台 HNWS"},
+{src:"http://183.251.61.207/PLTV/88888888/224/3221225934/index.m3u8",title:"吕清泉电视台 ZJWS"},
+{src:"http://183.251.61.207/PLTV/88888888/224/3221225936/index.m3u8",title:"吕清泉电视台 DFWS"},
+{src:"http://183.251.61.207/PLTV/88888888/224/3221225937/index.m3u8",title:"吕清泉电视台 BJWS"},
+{src:"http://wstv.cntv.cdnpe.com/cntvlive/btv1md.m3u8",title:"吕清泉电视台 BJTV1"},
+{src:"http://109.123.114.178:1935/Livenewson/Livenewson14/playlist.m3u8",title:"吕清泉电视台 CNN"},
+{src:"http://61.58.60.247:9000/live/222.m3u8",title:"吕清泉电视台 CGTN"},
+{src:"http://nhkwtvglobal-i.akamaihd.net/hls/live/263941/nhkwtvglobal/index_2100.m3u8",title:"吕清泉电视台 NHK"},
+{src:"https://cbsnhls-i.akamaihd.net/hls/live/264710/CBSN_mdialog/prodstream/master.m3u8",title:"吕清泉电视台 CBSN"},
+{src:"http://r.gslb.lecloud.com/live/hls/201704243000000wn99/desc.m3u8",title:"吕清泉电视台 AHTV"},
+
+
+
+{src:"http://104.160.190.80:9955/nimble_live/1131122/playlist.m3u8 ",title:"吕清泉电视台 日舞AMC电影台"},
+
+
+
+
+
+{src:"http://183.251.61.207/PLTV/88888888/224/3221225922/index.m3u8",title:"吕清泉电视台 CCTV1"}];
+	
+
+
+
+/*切歌*/	
+	var cut=function(){
+		videobox.src=mlist[index].src;
+		videobox.play();
+		title.innerHTML=mlist[index].title;
+	}
+	cut();
+
+	pre.addEventListener("click",function(){
+		index = index==0 ? mlist.length-1 : index-1;
+		cut();
+	})
+	next.addEventListener("click",function(){
+		index = index==mlist.length-1 ? 0 : index+1;
+		cut();
+	})
+	
+	/*暂停*/
+	on.addEventListener("click",function(){
+		console.log(off)
+		if(off){
+			videobox.play();
+			off=false;
+		}else{
+			videobox.pause();
+			off=true;
+		}
+		console.log(videobox.duration)
+		console.log(videobox.currentTime)
+	})
+
+	var getStyle=function(sy_node,sy_attr){
+		if(sy_node && sy_attr){
+			if(window.getComputedStyle(sy_node)[sy_attr]){
+				return window.getComputedStyle(sy_node)[sy_attr];
+			}else{
+				return sy_node.currentStyle[sy_attr];
+			}
+		}
+	}
+	/*声音控制器显示隐藏*/
+	voice.addEventListener("click",function(){
+		var boxheight=parseInt(getStyle(convoice,"height"));
+		convoice.style.display = getStyle(convoice,"display")=="none" ? "block" : "none"; 
+		changevoice.style.height=boxheight*videobox.volume+"px";
+	})
+	/*声音加减*/
+	convoice.addEventListener("click",function(e){
+		if(e.target.id=="changevoice"){
+			var offset=changevoice.offsetHeight-e.offsetY;
+				console.log(e.target)
+		
+		}else{
+			var offset=100-e.offsetY;
+		}
+		changevoice.style.height=offset+"px";		
+		videobox.volume = parseFloat(offset/100).toFixed(1);
+	})
+	/*全屏播放*/
+	fullscreen.addEventListener("click",function(){
+		videoboxbox.style.width="100%";
+		videoboxbox.style.height="100%";
+	})
+	/*连续播放*/
+	var speed=0;
+	videobox.addEventListener("timeupdate",function(){		
+		speed=videobox.currentTime/videobox.duration;
+		duration.style.width=currentTime.offsetWidth*speed+"px";
+		if(videobox.duration<=videobox.currentTime){
+			next.click();
+		}
+	})
+	currentTime.addEventListener("click",function(e){
+		var offset= e.offsetX<0 ? 0 : e.offsetX;
+		duration.style.width=offset+"px";
+		videobox.currentTime = videobox.duration*(offset/currentTime.offsetWidth);
+	})
+
+
+</script>
+</html>
